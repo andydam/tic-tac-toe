@@ -6,6 +6,11 @@ module.exports = class Board {
     }
   }
 
+  hasBeenToggled(x, y) {
+    if (this.board[x][y] !== '.') return true;
+    return false;
+  }
+
   togglePiece(piece, x, y) {
     this.board[x][y] = piece;
   }
