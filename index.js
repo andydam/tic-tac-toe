@@ -23,12 +23,30 @@ Enter coordinates seperated by a comma:
 Place a(n) ${player} at ${coordinates}
 `);
 
+  if (
+    coordinates[0] > board.height - 1 ||
+    coordinates[1] > board.width - 1 ||
+    coordinates[0] < 0 ||
+    coordinates[1] < 0
+  ) {
+    console.log(`Invalid location
+`);
+    return round(player);
+  }
+
   if (board.hasBeenToggled(...coordinates)) {
     console.log(`Piece already placed at ${coordinates}
 `);
     return round(player);
   }
   board.togglePiece(player, ...coordinates);
+
+  const status = board.check();
+  if (status) {
+    rl.close();
+    console.log(board.render());
+    return console.log(status);
+  }
 
   if (player === 'X') return round('O');
   if (player === 'O') return round('X');
